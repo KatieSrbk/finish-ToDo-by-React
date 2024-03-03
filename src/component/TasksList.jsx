@@ -1,10 +1,11 @@
+import { Box, Button, Container, Flex, Input, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 
 export const TasksList = ({ todosArray, setTodosArray }) => {
   const [inputForEdit, setInputForEdit] = useState('');
 
   const changeInputForEdit = (event) => {
-    setInputForEdit(event.target.value)
+    setInputForEdit(event.target.value);
   };
 
   const deleteTask = (id) => {
@@ -63,46 +64,46 @@ export const TasksList = ({ todosArray, setTodosArray }) => {
   };
 
   return (
-    <div>
+    <Box>
       {todosArray.map((item, index) => {
         if (item.isEdited === false) {
           return (
-            <div
-              className={`listTodo ${
-                item.isChecked === true ? 'shadowTodo' : ''
-              }`}
-              key={index}
-            >
-              <p className={item.isChecked === true ? 'compliteTodo' : ''}>
+            <Container key={index} opacity={item.isChecked === true ? 0.5 : 1}>
+              <Text
+                textDecoration={
+                  item.isChecked === true ? 'line-through' : 'none'
+                }
+              >
                 {item.text}
-              </p>
-              <div>
-                <button onClick={() => okeyTask(item.id)}>ok</button>
-                <button onClick={() => editTask(item.id)}>edit</button>
-                <button onClick={() => deleteTask(item.id)}>del</button>
-              </div>
-            </div>
+              </Text>
+              <Container>
+                <Button
+                  colorScheme="teal"
+                  variant="ghost"
+                  onClick={() => okeyTask(item.id)}
+                >
+                  ok
+                </Button>
+                <Button onClick={() => editTask(item.id)}>edit</Button>
+                <Button onClick={() => deleteTask(item.id)}>del</Button>
+              </Container>
+            </Container>
           );
         } else {
           return (
-            <div className="listTodo" key={index}>
-              <input
-                className="inputForEdit"
+            <Container key={index}>
+              <Input
+                variant="filled"
                 value={inputForEdit}
                 onChange={changeInputForEdit}
               />
-              <div>
-                <button
-                  className="buttonOk"
-                  onClick={() => saveEditedTask(item.id)}
-                >
-                  ok
-                </button>
-              </div>
-            </div>
+              <Container>
+                <Button onClick={() => saveEditedTask(item.id)}>ok</Button>
+              </Container>
+            </Container>
           );
         }
       })}
-    </div>
+    </Box>
   );
 };

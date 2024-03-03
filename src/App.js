@@ -1,9 +1,8 @@
-import { useState , useEffect } from 'react';
-import './App.css';
+import { useState, useEffect } from 'react';
 import { PartAdd } from './component/PartAdd';
 import { FooterElem } from './component/FooterElem';
 import { TasksList } from './component/TasksList';
-
+import { Box, Container, Heading } from '@chakra-ui/react';
 
 const testTodos = [
   {
@@ -17,31 +16,29 @@ const testTodos = [
 function App() {
   const [todosArray, setTodosArray] = useState([]);
 
-
   useEffect(() => {
-    if(localStorage.getItem('localTodos') === null){
-      setTodosArray([])
+    if (localStorage.getItem('localTodos') === null) {
+      setTodosArray([]);
     } else {
-      const newArr = JSON.parse(localStorage.getItem('localTodos'))
-      setTodosArray(newArr)
+      const newArr = JSON.parse(localStorage.getItem('localTodos'));
+      setTodosArray(newArr);
     }
-    
-  }, [])
+  }, []);
 
-  console.log(todosArray);
 
   return (
-    <div className="App">
-      {/* <button onClick={getInitialTodos}>get todos</button> */}
-      <div className="todo">
-        <div className="header-part">
-          <h1>My To-Do</h1>
-        </div>
+    <Box textAlign="center">
+      <Box>
+        <Container>
+          <Heading as="h1" fontSize="4xl">
+            My To-Do
+          </Heading>
+        </Container>
         <PartAdd setTodosArray={setTodosArray} todosArray={todosArray} />
-        <TasksList todosArray={todosArray} setTodosArray={setTodosArray}/>
-        <FooterElem setTodosArray={setTodosArray} todosArray={todosArray}/>
-      </div>
-    </div>
+        <TasksList todosArray={todosArray} setTodosArray={setTodosArray} />
+        <FooterElem setTodosArray={setTodosArray} todosArray={todosArray} />
+      </Box>
+    </Box>
   );
 }
 
